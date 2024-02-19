@@ -1055,6 +1055,10 @@ input[type="range"]::-ms-fill-lower {
   padding: 1.25rem;
 }
 
+.p-20 {
+  padding: 5rem;
+}
+
 .text-lg {
   font-size: 1.125rem;
   line-height: 1.75rem;
