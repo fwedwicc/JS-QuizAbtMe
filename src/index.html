@@ -5,7 +5,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="./output.css" rel="stylesheet">
-  <!-- <script src="./js/dark-mode-toggle.js"></script> -->
   <script>
     // On page load or when changing themes, best to add inline in `head` to avoid FOUC
     if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
@@ -109,7 +108,7 @@
     </div>
     <!-- Question -->
     <div class="flex justify-between items-center mb-7 gap-5">
-      <h3 class="lg:text-4xl text-2xl font-bold text-gray-900 dark:text-white">What's my favorite band of all time?
+      <h3 class="lg:text-4xl text-2xl font-bold text-gray-900 dark:text-white" id="question">What's my favorite band of all time?
       </h3>
       <button type="button" data-modal-target="hint-modal" data-modal-toggle="hint-modal"
         class="px-5 py-2.5 text-sm font-medium text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
@@ -122,10 +121,17 @@
         Hint
       </button>
     </div>
+    <div class="quiz">
     <!-- Options -->
-    <ul class="grid w-full gap-6 md:grid-cols-2">
+    <div id="answer-buttons">
+      <button class="btn">Answer 1</button>
+      <button class="btn">Answer 2</button>
+      <button class="btn">Answer 3</button>
+      <button class="btn">Answer 4</button>
+    </div>
+    <!-- <ul class="grid w-full gap-6 md:grid-cols-2" id="answer-buttons">
       <li>
-        <input type="radio" id="first-option" name="option" value="first-option" class="hidden peer" required />
+        <input type="radio" class="btn" name="option" value="first-option"/>
         <label for="first-option"
           class="inline-flex items-center justify-between w-full p-5 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
           <div class="block">
@@ -141,7 +147,7 @@
         </label>
       </li>
       <li>
-        <input type="radio" id="second-option" name="option" value="second-option" class="hidden peer" required />
+        <input type="radio" class="btn" name="option" value="second-option" />
         <label for="second-option"
           class="inline-flex items-center justify-between w-full p-5 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
           <div class="block">
@@ -157,7 +163,7 @@
         </label>
       </li>
       <li>
-        <input type="radio" id="third-option" name="option" value="third-option" class="hidden peer" required />
+        <input type="radio" class="btn" name="option" value="third-option"/>
         <label for="third-option"
           class="inline-flex items-center justify-between w-full p-5 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
           <div class="block">
@@ -173,7 +179,7 @@
         </label>
       </li>
       <li>
-        <input type="radio" id="fourth-option" name="option" value="fourth-option" class="hidden peer">
+        <input type="radio" class="btn" name="option" value="fourth-option">
         <label for="fourth-option"
           class="inline-flex items-center justify-between w-full p-5 text-gray-500 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
           <div class="block">
@@ -188,21 +194,16 @@
           </svg>
         </label>
       </li>
-    </ul>
+    </ul> -->
     <!-- Number of questions span and next button  -->
     <div class="mt-7">
       <div class="flex justify-between">
         <span class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
           1 of 10 questions
         </span>
-        <button type="button"
-          class="px-5 py-2.5 text-sm font-medium text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+        <button type="button" id="next-btn"
+          class="px-5 py-2.5 text-sm font-medium text-white items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 hidden">
           Next
-          <svg class="ml-2 w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-            fill="none" viewBox="0 0 24 24">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="m9 5 7 7-7 7" />
-          </svg>
         </button>
       </div>
       <!-- Hint Modal Content -->
@@ -228,6 +229,7 @@
           </div>
         </div>
       </div>
+    </div>
   </main>
   <!-- Footer -->
   <footer class="pt-8">
@@ -290,6 +292,8 @@
   <script src="./js/mode-toggle.js"></script>
   <!-- Flowbite script -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.js"></script>
+  <!-- Main Javascript -->
+  <script src="./js/quiz.js"></script>
 </body>
 
 </html>

@@ -1,3 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.correct {
+  background: #9aeabc;
+}
+.correct {
+  background: #ff9393;
+}
