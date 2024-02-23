@@ -1,120 +1,112 @@
+const startButton = document.getElementById('start-btn')
+const nextButton = document.getElementById('next-btn')
+const questionContainerElement = document.getElementById('question-container')
+const questionElement = document.getElementById('question')
+const answerButtonsElement = document.getElementById('answer-buttons')
+
+let shuffledQuestions, currentQuestionIndex
+
+startButton.addEventListener('click', startGame)
+nextButton.addEventListener('click', () => {
+  currentQuestionIndex++
+  setNextQuestion()
+})
+
+function startGame() {
+  startButton.classList.add('hide')
+  shuffledQuestions = questions.sort(() => Math.random() - .5)
+  currentQuestionIndex = 0
+  questionContainerElement.classList.remove('hide')
+  setNextQuestion()
+}
+
+function setNextQuestion() {
+  resetState()
+  showQuestion(shuffledQuestions[currentQuestionIndex])
+}
+
+function showQuestion(question) {
+  questionElement.innerText = question.question
+  question.answers.forEach(answer => {
+    const button = document.createElement('button')
+    button.innerText = answer.text
+    button.classList.add('btn')
+    if (answer.correct) {
+      button.dataset.correct = answer.correct
+    }
+    button.addEventListener('click', selectAnswer)
+    answerButtonsElement.appendChild(button)
+  })
+}
+
+function resetState() {
+  clearStatusClass(document.body)
+  nextButton.classList.add('hide')
+  while (answerButtonsElement.firstChild) {
+    answerButtonsElement.removeChild(answerButtonsElement.firstChild)
+  }
+}
+
+function selectAnswer(e) {
+  const selectedButton = e.target
+  const correct = selectedButton.dataset.correct
+  setStatusClass(document.body, correct)
+  Array.from(answerButtonsElement.children).forEach(button => {
+    setStatusClass(button, button.dataset.correct)
+  })
+  if (shuffledQuestions.length > currentQuestionIndex + 1) {
+    nextButton.classList.remove('hide')
+  } else {
+    startButton.innerText = 'Restart'
+    startButton.classList.remove('hide')
+  }
+}
+
+function setStatusClass(element, correct) {
+  clearStatusClass(element)
+  if (correct) {
+    element.classList.add('correct')
+  } else {
+    element.classList.add('wrong')
+  }
+}
+
+function clearStatusClass(element) {
+  element.classList.remove('correct')
+  element.classList.remove('wrong')
+}
+
 const questions = [
   {
-    question: "First Question",
+    question: 'What is 2 + 2?',
     answers: [
-      { text: "Answer A", correct: false },
-      { text: "Asnswer B", correct: true },
-      { text: "Answer C", correct: false },
-      { text: "Answer D", correct: false },
+      { text: '4', correct: true },
+      { text: '22', correct: false }
     ]
   },
   {
-    question: "Second Question",
+    question: 'Who is the best YouTuber?',
     answers: [
-      { text: "Asnswer A", correct: true },
-      { text: "Answer B", correct: false },
-      { text: "Answer C", correct: false },
-      { text: "Answer D", correct: false },
+      { text: 'Web Dev Simplified', correct: true },
+      { text: 'Traversy Media', correct: true },
+      { text: 'Dev Ed', correct: true },
+      { text: 'Fun Fun Function', correct: true }
     ]
   },
   {
-    question: "Third Question",
+    question: 'Is web development fun?',
     answers: [
-      { text: "Answer A", correct: false },
-      { text: "Answer B", correct: false },
-      { text: "Answer C", correct: false },
-      { text: "Asnswer D", correct: true },
+      { text: 'Kinda', correct: false },
+      { text: 'YES!!!', correct: true },
+      { text: 'Um no', correct: false },
+      { text: 'IDK', correct: false }
     ]
   },
   {
-    question: "Fourth Question",
+    question: 'What is 4 * 2?',
     answers: [
-      { text: "Answer A", correct: false },
-      { text: "Answer B", correct: false },
-      { text: "Asnswer C", correct: true },
-      { text: "Answer D", correct: false },
+      { text: '6', correct: false },
+      { text: '8', correct: true }
     ]
   }
-];
-
-const questionElement = document.getElementById("question");
-const answerButtons = document.getElementById("answer-buttons");
-const nextButton = document.getElementById("next-btn");
-
-let currentQuestionIndex = 0;
-let score = 0;
-
-function startQuiz() {
-  currentQuestionIndex = 0;
-  score = 0;
-  nextButton.innerHTML = "Next";
-  showQuestion();
-}
-
-function showQuestion() {
-  // resetState();
-  let currentQuestion = questions[currentQuestionIndex];
-  let questionNo = currentQuestionIndex + 1;
-  questionElement.innerHTML = questionNo + ". " + currentQuestion.question;
-
-  currentQuestion.answers.forEach(answer => {
-    const button = documment.createElement("button");
-    button.innerHTML = answer.text;
-    button.classList.add("btn");
-    answerButtons.appendChild(button);
-    // if (answer.correct){
-    //   button.dataset.correct = answer.correct;
-    // }
-    // button.addEventListener("click", selectAnswer);
-  });
-}
-
-// function resetState(){
-//   nextButton.style.display = "none";
-//   while(answerButtons.firstChild) {
-//     answerButtons.removeChild(answerButtons.firstChild);
-//   }
-// }
-
-// function selectAnswer() {
-//   const selectedBtn = e.target;
-//   const isCorrect = selectedBtn.dataset.correct === "true";
-//   if (isCorrect) {
-//     selectedBtn.classList.add("correct");
-//     score++;
-//   } else {
-//     selectedBtn.classList.add("incorrect");
-//   }
-//   Array.from(answerButtons.children).forEach(button => {
-//     if (button.dataset.correct === "true") {
-//       button.classList.add("correct");
-//     }
-//     button.disabled = true;
-//   });
-//   nextButton.style.display = "block";
-// }
-
-// function showScore() {
-//   resetState();
-//   questionElement.innerHTML = `You scored ${score} out of ${questions.length}!`;
-//   nextButton.innerHTML = "Play Again";
-// }
-
-// function handleNextButton() {
-//   currentQuestionIndex++;
-//   if (currentQuestionIndex < questions.length) {
-//     showQuestion();
-//   } else {
-//     showScore();
-//   }
-// }
-
-// nextButton.addEventListener("click", ()=>{
-//   if (currentQuestionIndex < questions.length) {
-//     handleNextButton();
-//   } else {
-//     startQuiz();
-//   }
-// });
-
-startQuiz();
+]
