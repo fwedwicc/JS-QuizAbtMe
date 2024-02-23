@@ -17,7 +17,7 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.3.0/flowbite.min.css" rel="stylesheet" />
 </head>
 
-<body class="dark:bg-gray-900 bg-white">
+<body class="dark:bg-gray-900 bg-white lg:px-36 p-12 pt-32 h-screen">
   <!-- Navbar -->
   <nav class="bg-white dark:bg-gray-900 fixed w-full z-20 top-0 start-0 border-b border-gray-200 dark:border-gray-600">
     <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
@@ -99,9 +99,14 @@
       <a href="#" class="hover:underline">212-456-7890</a>
     </p>
   </div>
-
   <!-- Main content -->
-  <main class="lg:px-36 p-12 pt-36">
+  <main>
+    <div class="flex justify-end mb-1">
+      <span class="text-sm font-medium text-blue-700 dark:text-white">10%</span>
+    </div>
+    <div class="w-full bg-gray-200 rounded-full h-2.5 mb-6 dark:bg-gray-700">
+      <div class="bg-blue-600 h-2.5 rounded-full" style="width: 10%"></div>
+    </div>
     <!-- Question -->
     <div class="flex justify-between items-center mb-7 gap-5">
       <h3 class="lg:text-4xl text-2xl font-bold text-gray-900 dark:text-white">What's my favorite band of all time?
@@ -225,7 +230,7 @@
       </div>
   </main>
   <!-- Footer -->
-  <footer class="lg:px-36 p-8 pt-4">
+  <footer class="pt-8">
     <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
     <div class="sm:flex sm:items-center sm:justify-between">
       <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2023 <a href="https://flowbite.com/"
